@@ -2,6 +2,8 @@ import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.svm import SVC
 
 book = pd.read_csv('books.csv', error_bad_lines=False)
 
@@ -82,3 +84,10 @@ plt.title('Top Rated Books')
 plt.subplots_adjust(top=0.9)
 ax.bar(x2, y2)
 plt.show()
+
+X_train, X_test, y_train, y_test = train_test_split(books['num_pages', 'ratings_count', 'text_reviews_count'], books['average_rating'], test_size=0.2, random_state=42)
+
+svc = SVC()
+svc.fit(X_train, y_train)
+svc.predict(X_test)
+svc.score(X_test, y_test)
