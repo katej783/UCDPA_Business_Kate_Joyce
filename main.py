@@ -4,6 +4,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.svm import SVC
+import re
 
 book = pd.read_csv('books.csv', error_bad_lines=False)
 
@@ -85,9 +86,24 @@ plt.subplots_adjust(top=0.9)
 ax.bar(x2, y2)
 plt.show()
 
+# Regex
+txt = "harry potter is half wizard"
+x = re.search("^harry.*wizard$",txt)
+if x:
+    print("Match!")
+else:
+    print("No Match")
+
+x = re.findall("ha", txt)
+print(x)
+
+x = re.split("\s", txt)
+print(x)
+
 X_train, X_test, y_train, y_test = train_test_split(books['num_pages', 'ratings_count', 'text_reviews_count'], books['average_rating'], test_size=0.2, random_state=42)
 
 svc = SVC()
 svc.fit(X_train, y_train)
 svc.predict(X_test)
 svc.score(X_test, y_test)
+
